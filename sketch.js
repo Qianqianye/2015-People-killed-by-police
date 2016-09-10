@@ -30,7 +30,7 @@ var path = sankey.link();
 d3.csv("sankey.csv", function(error, data) {
 
 // var dataset = []
-// d3.csv("the-counted-2015.csv.csv", function(data) {
+// d3.csv("the-counted-2015.csv", function(data) {
 //    dataset = data.map(function(d) { return [ +d["max_i"], +d["min_i"] ]; });
 // });
 // console.log(dataset)
