@@ -48,8 +48,11 @@ console.log(allGenders);
 console.log(allRaces);
 console.log(allArmed);
 
-//-----------Gender to Race-----------//
 
+var FinalDataArray = [];
+var x = [];
+
+//-----------2. Gender to Race-----------//
 var NewDataArray2 = []; //new array which is blank
 
 for (var genderindex = 0; genderindex < allGenders.length; genderindex++) { 
@@ -72,44 +75,47 @@ for (var genderindex = 0; genderindex < allGenders.length; genderindex++) {
     NewDataArray2.push(miniArray2);
   }
 }
-    data.addColumn('string', 'Gender');
-    data.addColumn('string', 'Race');
+
+//-----------3. Race to Armed-----------//
+
+var NewDataArray3 = []; 
+
+    for (var raceindex = 0; raceindex < allRaces.length; raceindex++) { 
+  for (var armedindex = 0; armedindex < allRaces.length; armedindex++) { 
+    var nowCount = 0;
+    var nowRace = allRaces[raceindex];
+    var nowArmed = allArmed[armedindex];
+
+    for (var dataIndex = 0; dataIndex < dataCSV.Lf.length; dataIndex++) { //loop of all data in the array
+        if(dataCSV.Lf[dataIndex].c[4].v == nowRace  &&  dataCSV.Lf[dataIndex].c[13].v == nowArmed ){
+          nowCount++;
+        }
+    }
+
+  var miniArray3 = [];
+    console.log('in all the data we found this:');
+    miniArray3.push(nowRace);
+    miniArray3.push(nowArmed);
+    miniArray3.push(nowCount);
+    console.log(miniArray3);
+    NewDataArray3.push(miniArray3);
+  }
+}
+
+    //-----------?????big problem????----------//
+    x.push(NewDataArray2);
+    x.push(NewDataArray3);
+    console.log(x);
+    FinalDataArray.push(x);
+  
+
+    data.addColumn('string', 'From');
+    data.addColumn('string', 'To');
     data.addColumn('number', 'Ammt');
-    data.addRows(NewDataArray2); 
+    data.addRows(FinalDataArray); 
 
 
-//-----------Race to Armed-----------//
-
-// var NewDataArray3 = []; 
-
-//     for (var raceindex = 0; raceindex < allRaces.length; raceindex++) { 
-//   for (var armedindex = 0; armedindex < allRaces.length; armedindex++) { 
-//     var nowCount = 0;
-//     var nowRace = allRaces[raceindex];
-//     var nowArmed = allArmed[armedindex];
-
-//     for (var dataIndex = 0; dataIndex < dataCSV.Lf.length; dataIndex++) { //loop of all data in the array
-//         if(dataCSV.Lf[dataIndex].c[4].v == nowRace  &&  dataCSV.Lf[dataIndex].c[13].v == nowArmed ){
-//           nowCount++;
-//         }
-//     }
-
-//   var miniArray3 = [];
-//     console.log('in all the data we found this:');
-//     miniArray3.push(nowRace);
-//     miniArray3.push(nowArmed);
-//     miniArray3.push(nowCount);
-//     console.log(miniArray3);
-//     NewDataArray3.push(miniArray3);
-//   }
-// }
-
-//     data.addColumn('string', 'Race');
-//     data.addColumn('string', 'Armed');
-//     data.addColumn('number', 'Ammt');
-//     data.addRows(NewDataArray3);
-
-
+//-----------for style----------//
 
      var colors = ['#a6cee3', '#b2df8a', '#fb9a99', '#fdbf6f',
                   '#cab2d6', '#ffff99', '#1f78b4', '#33a02c'];
@@ -172,6 +178,7 @@ for (var genderindex = 0; genderindex < allGenders.length; genderindex++) {
     //    [ 'Morocco', 'India', 1 ],
     //    [ 'Morocco', 'Japan', 3 ]
     // ]);
+
 
 </script>
 </body>
