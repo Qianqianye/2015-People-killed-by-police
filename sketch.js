@@ -89,10 +89,12 @@ for (var raceindex = 0; raceindex < allRaces.length; raceindex++) {
  // console.log(NewDataArray );
      data.addColumn('string', 'gender');
      data.addColumn('string', 'raceethnicity');
-     // data.addColumn('string', 'armed');
      data.addColumn('number', 'Weight');
-     
-     data.addRows(nowCount);
+     data.addRows('nowGender', 'nowRace', nowCount);
+
+
+ // data.addColumn('string', 'armed');
+
 
      var colors = ['#a6cee3', '#b2df8a', '#fb9a99', '#fdbf6f',
                   '#cab2d6', '#ffff99', '#1f78b4', '#33a02c'];

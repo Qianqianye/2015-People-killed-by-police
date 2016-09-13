@@ -9,7 +9,7 @@
    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-<div id="sankey_multiple" style="width: 900px; height: 500px;"></div>
+<div id="sankey_multiple" style="width: 600px; height: 600px;"></div>
 
 <script type="text/javascript">
 
@@ -31,16 +31,14 @@ function uniq(a) {
    var dataCSV = new google.visualization.arrayToDataTable(arrayData); // this new DataTable object holds all the data
       var data = new google.visualization.DataTable();
 
-var NewDataArray = []; //new array which is blank
-
-
 var allGenders = [];
 var allRaces = [];
 var allArmed = [];
-for (var i = 0; i < dataCSV.Tf.length; i++) { //loop of all data in the array
-  allGenders.push(dataCSV.Tf[i].c[3].v);
-  allRaces.push(dataCSV.Tf[i].c[4].v);
-  allArmed.push(dataCSV.Tf[i].c[13].v);
+console.log(dataCSV);
+for (var i = 0; i < dataCSV.Lf.length; i++) { //loop of all data in the array
+  allGenders.push(dataCSV.Lf[i].c[3].v);
+  allRaces.push(dataCSV.Lf[i].c[4].v);
+  allArmed.push(dataCSV.Lf[i].c[13].v);
 }
 allGenders = uniq(allGenders);
 allRaces = uniq(allRaces);
@@ -50,69 +48,73 @@ console.log(allGenders);
 console.log(allRaces);
 console.log(allArmed);
 
+//-----------Gender to Race-----------//
+
+var NewDataArray2 = []; //new array which is blank
 
 for (var genderindex = 0; genderindex < allGenders.length; genderindex++) { 
-
   for (var raceindex = 0; raceindex < allRaces.length; raceindex++) { 
-
     var nowCount = 0;
     var nowGender = allGenders[genderindex];
     var nowRace = allRaces[raceindex];
 
-    for (var dataIndex = 0; dataIndex < dataCSV.Tf.length; dataIndex++) { //loop of all data in the array
-        if(dataCSV.Tf[dataIndex].c[3].v == nowGender  &&  dataCSV.Tf[dataIndex].c[4].v == nowRace ){
+    for (var dataIndex = 0; dataIndex < dataCSV.Lf.length; dataIndex++) { //loop of all data in the array
+        if(dataCSV.Lf[dataIndex].c[3].v == nowGender  &&  dataCSV.Lf[dataIndex].c[4].v == nowRace ){
           nowCount++;
         }
     }
+    var miniArray2 = [];
     console.log('in all the data we found this:');
-    console.log(nowGender + ' ' + nowRace + ' ' + nowCount);
+    miniArray2.push(nowGender);
+    miniArray2.push(nowRace);
+    miniArray2.push(nowCount);
+    console.log(miniArray2);
+    NewDataArray2.push(miniArray2);
   }
 }
+    data.addColumn('string', 'Gender');
+    data.addColumn('string', 'Race');
+    data.addColumn('number', 'Ammt');
+    data.addRows(NewDataArray2); 
 
-for (var raceindex = 0; raceindex < allRaces.length; raceindex++) { 
 
-  for (var armedindex = 0; armedindex < allRaces.length; armedindex++) { 
+//-----------Race to Armed-----------//
 
-    var nowCount = 0;
-    var nowRace = allRaces[raceindex];
-    var nowArmed = allArmed[armedindex];
+// var NewDataArray3 = []; 
 
-    for (var dataIndex = 0; dataIndex < dataCSV.Tf.length; dataIndex++) { //loop of all data in the array
-        if(dataCSV.Tf[dataIndex].c[4].v == nowRace  &&  dataCSV.Tf[dataIndex].c[13].v == nowArmed ){
-          nowCount++;
-        }
-    }
-    console.log('in all the data we found this:');
-    console.log(nowRace + ' ' + nowArmed + ' ' + nowCount);
+//     for (var raceindex = 0; raceindex < allRaces.length; raceindex++) { 
+//   for (var armedindex = 0; armedindex < allRaces.length; armedindex++) { 
+//     var nowCount = 0;
+//     var nowRace = allRaces[raceindex];
+//     var nowArmed = allArmed[armedindex];
 
-  }
-}
+//     for (var dataIndex = 0; dataIndex < dataCSV.Lf.length; dataIndex++) { //loop of all data in the array
+//         if(dataCSV.Lf[dataIndex].c[4].v == nowRace  &&  dataCSV.Lf[dataIndex].c[13].v == nowArmed ){
+//           nowCount++;
+//         }
+//     }
 
-// for (var dataIndex = 0; dataIndex < dataCSV.Tf.length; dataIndex++) { //loop of all data in the array
+//   var miniArray3 = [];
+//     console.log('in all the data we found this:');
+//     miniArray3.push(nowRace);
+//     miniArray3.push(nowArmed);
+//     miniArray3.push(nowCount);
+//     console.log(miniArray3);
+//     NewDataArray3.push(miniArray3);
+//   }
+// }
 
-//   var miniArray = [];
-//    miniArray.push(dataCSV.Tf[dataIndex].c[3].v);
-//    miniArray.push(dataCSV.Tf[dataIndex].c[4].v );
-//    // miniArray.push(dataCSV.Tf[dataIndex].c[13].v  );
-//    NewDataArray.push(miniArray.count);
+//     data.addColumn('string', 'Race');
+//     data.addColumn('string', 'Armed');
+//     data.addColumn('number', 'Ammt');
+//     data.addRows(NewDataArray3);
 
-//   NewDataArray.push(miniArray);
 
-//   // console.log(miniArray );
-// };
-
- // console.log(NewDataArray );
-     data.addColumn('string', 'gender');
-     data.addColumn('string', 'raceethnicity');
-     // data.addColumn('string', 'armed');
-     data.addColumn('number', 'Weight');
-     
-     data.addRows(nowCount);
 
      var colors = ['#a6cee3', '#b2df8a', '#fb9a99', '#fdbf6f',
                   '#cab2d6', '#ffff99', '#1f78b4', '#33a02c'];
 
-    var options = {
+     var options = {
       height: 400,
       sankey: {
         node: {
@@ -130,10 +132,24 @@ for (var raceindex = 0; raceindex < allRaces.length; raceindex++) {
     chart.draw(data, options);
 
 
-});
+  });
+}
 
- }
+// for (var dataIndex = 0; dataIndex < dataCSV.Tf.length; dataIndex++) { //loop of all data in the array
 
+//   var miniArray = [];
+//    miniArray.push(dataCSV.Tf[dataIndex].c[3].v);
+//    miniArray.push(dataCSV.Tf[dataIndex].c[4].v );
+//    // miniArray.push(dataCSV.Tf[dataIndex].c[13].v  );
+//    NewDataArray.push(miniArray.count);
+
+//   NewDataArray.push(miniArray);
+
+//   // console.log(miniArray );
+// };
+
+ // console.log(NewDataArray );
+  
   
   //REFERENCE BELOW
   // var data = new google.visualization.DataTable();
