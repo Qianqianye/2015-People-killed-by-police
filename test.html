@@ -25,7 +25,7 @@ function uniq(a) {
 
    function drawChart() {
 
-   $.get("the-counted-2015.csv", function(csvString) {
+   $.get("the-counted-2015-processed.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
    var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
    var dataCSV = new google.visualization.arrayToDataTable(arrayData); // this new DataTable object holds all the data
@@ -34,85 +34,108 @@ function uniq(a) {
 var allGenders = [];
 var allRaces = [];
 var allArmed = [];
+var allClassification = [];
 console.log(dataCSV);
 for (var i = 0; i < dataCSV.Lf.length; i++) { //loop of all data in the array
   allGenders.push(dataCSV.Lf[i].c[3].v);
   allRaces.push(dataCSV.Lf[i].c[4].v);
   allArmed.push(dataCSV.Lf[i].c[13].v);
+  allClassification.push(dataCSV.Lf[i].c[11].v);
+
 }
 allGenders = uniq(allGenders);
 allRaces = uniq(allRaces);
 allArmed = uniq(allArmed);
+allClassification = uniq(allClassification);
+
 
 console.log(allGenders);
 console.log(allRaces);
 console.log(allArmed);
+console.log(allClassification);
 
 
-var FinalDataArray = [];
-var x = [];
 
-//-----------2. Gender to Race-----------//
-var NewDataArray2 = []; //new array which is blank
+var FinalDataArray = []; // only need one big array to store everything
 
-for (var genderindex = 0; genderindex < allGenders.length; genderindex++) { 
-  for (var raceindex = 0; raceindex < allRaces.length; raceindex++) { 
-    var nowCount = 0;
-    var nowGender = allGenders[genderindex];
-    var nowRace = allRaces[raceindex];
+// -----------2. Gender to Race-----------//
 
-    for (var dataIndex = 0; dataIndex < dataCSV.Lf.length; dataIndex++) { //loop of all data in the array
-        if(dataCSV.Lf[dataIndex].c[3].v == nowGender  &&  dataCSV.Lf[dataIndex].c[4].v == nowRace ){
-          nowCount++;
+
+for (var genderindex = 0; genderindex < allGenders.length; genderindex++) {  // choose a gender to look for
+    for (var raceindex = 0; raceindex < allRaces.length; raceindex++) {  // choose a race to look for
+        var nowCount = 0;  // start counting with no values
+        var nowGender = allGenders[genderindex]; // our chosen gender for this loop
+        var nowRace = allRaces[raceindex]; // out chosen race for this loop
+        for (var dataIndex = 0; dataIndex < dataCSV.Lf.length; dataIndex++) { //loop of all data in the array looking for the above race and gender
+            if(dataCSV.Lf[dataIndex].c[3].v == nowGender  &&  dataCSV.Lf[dataIndex].c[4].v == nowRace ){ // if this data object matches our chosen gender and race
+                nowCount++;  //add one value to our item count
+            }
         }
+        var miniArray_local = []; // make a blank array to store this small data object (local only)
+        console.log('in all the data we found this:'); 
+        miniArray_local.push(nowGender); // push one value to our small blank array
+        miniArray_local.push(nowRace); //  push one value to our small blank array
+        miniArray_local.push(nowCount);// push one value to our small blank array
+        // console.log(miniArray_local);
+        FinalDataArray.push(miniArray_local);// push our mini array (three values long) into our master array list
     }
-    var miniArray2 = [];
-    console.log('in all the data we found this:');
-    miniArray2.push(nowGender);
-    miniArray2.push(nowRace);
-    miniArray2.push(nowCount);
-    console.log(miniArray2);
-    NewDataArray2.push(miniArray2);
-  }
 }
 
 //-----------3. Race to Armed-----------//
-
-var NewDataArray3 = []; 
-
-    for (var raceindex = 0; raceindex < allRaces.length; raceindex++) { 
-  for (var armedindex = 0; armedindex < allRaces.length; armedindex++) { 
-    var nowCount = 0;
-    var nowRace = allRaces[raceindex];
-    var nowArmed = allArmed[armedindex];
-
-    for (var dataIndex = 0; dataIndex < dataCSV.Lf.length; dataIndex++) { //loop of all data in the array
-        if(dataCSV.Lf[dataIndex].c[4].v == nowRace  &&  dataCSV.Lf[dataIndex].c[13].v == nowArmed ){
-          nowCount++;
+ 
+for (var raceindex = 0; raceindex < allRaces.length; raceindex++) { // choose a race to look for
+    for (var armedindex = 0; armedindex < allArmed.length; armedindex++) {// choose a armed status to look for
+        var nowCount = 0;  // start counting with no values
+        var nowRace = allRaces[raceindex];// our chosen race for this loop
+        var nowArmed = allArmed[armedindex];// our chosen armed status for this loop
+        for (var dataIndex = 0; dataIndex < dataCSV.Lf.length; dataIndex++) { //loop of all data in the array
+            if(dataCSV.Lf[dataIndex].c[4].v == nowRace  &&  dataCSV.Lf[dataIndex].c[13].v == nowArmed ){// if this data object matches our chosen race and armed status
+                nowCount++; //add one value to our item count
+            }
         }
+        var miniArray_local = [];// make a blank array to store this small data object (local only)
+        console.log('in all the data we found this:');
+        miniArray_local.push(nowRace);// push one value to our small blank array
+        miniArray_local.push(nowArmed);// push one value to our small blank array
+        miniArray_local.push(nowCount);// push one value to our small blank array
+        console.log(miniArray_local);
+        FinalDataArray.push(miniArray_local);// push our mini array (three values long) into our master array list
     }
-
-  var miniArray3 = [];
-    console.log('in all the data we found this:');
-    miniArray3.push(nowRace);
-    miniArray3.push(nowArmed);
-    miniArray3.push(nowCount);
-    console.log(miniArray3);
-    NewDataArray3.push(miniArray3);
-  }
 }
 
-    //-----------?????big problem????----------//
-    x.push(NewDataArray2);
-    x.push(NewDataArray3);
-    console.log(x);
-    FinalDataArray.push(x);
-  
 
-    data.addColumn('string', 'From');
-    data.addColumn('string', 'To');
-    data.addColumn('number', 'Ammt');
-    data.addRows(FinalDataArray); 
+//-----------4. Armed to Classification-----------//
+
+
+for (var armedindex = 0; armedindex < allArmed.length; armedindex++) {  // choose an armed to look for
+    for (var classificationindex = 0; classificationindex < allClassification.length; classificationindex++) {  // choose a classification to look for
+        var nowCount = 0;  // start counting with no values
+        var nowArmed = allArmed[armedindex]; // our chosen gender for this loop
+        var nowClassification = allClassification[classificationindex]; // out chosen race for this loop
+        for (var dataIndex = 0; dataIndex < dataCSV.Lf.length; dataIndex++) { //loop of all data in the array looking for the above race and gender
+            if(dataCSV.Lf[dataIndex].c[13].v == nowArmed  &&  dataCSV.Lf[dataIndex].c[11].v == nowClassification ){ // if this data object matches our chosen gender and race
+                nowCount++;  //add one value to our item count
+            }
+        }
+        var miniArray_local = []; // make a blank array to store this small data object (local only)
+        console.log('in all the data we found this:'); 
+        miniArray_local.push(nowArmed); // push one value to our small blank array
+        miniArray_local.push(nowClassification); //  push one value to our small blank array
+        miniArray_local.push(nowCount);// push one value to our small blank array
+        // console.log(miniArray_local);
+        FinalDataArray.push(miniArray_local);// push our mini array (three values long) into our master array list
+    }
+}
+
+
+
+        console.log('IN THE END we found this:');
+        console.log(FinalDataArray);
+        data.addColumn('string', 'From');
+        data.addColumn('string', 'To');
+        data.addColumn('number', 'Ammt');
+        data.addRows(FinalDataArray); 
+
 
 
 //-----------for style----------//
