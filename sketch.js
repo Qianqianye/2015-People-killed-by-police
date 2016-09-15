@@ -2,13 +2,6 @@
   google.charts.load("current", {packages:["sankey"]});
   google.charts.setOnLoadCallback(drawChart);
 
-  // function uniq(a) {
-  //  var seen = {};
-  //  return a.filter(function(item) {
-  //    return seen.hasOwnProperty(item) ? false : (seen[item] = true);
-  //  })；
-  // }
-
 
 function uniq(a) {
     var seen = {};
@@ -196,10 +189,15 @@ for (var armedindex = 0; armedindex < allArmed.length; armedindex++) {  // choos
 
 //-----------for style----------//
 
-var colors = ['#ccffcc', '#e4ffd4', '#a1ffad', '#c4ffa1', '#d4e5ff', 
-'#aeeeae','#d6f6d6', 
-'#fff68f', '#f2b686',
-'#ffefd4', '#f98a9a'];
+
+var colors = [ '#f8f4d3', '#c774e8', '#4cdcce','#ad8cff', '#8795e8',
+                  '#94d0ff'];
+
+
+// var colors = ['#ccffcc', '#e4ffd4', '#a1ffad', '#c4ffa1', '#d4e5ff', 
+// '#aeeeae','#d6f6d6', 
+// '#fff68f', '#f2b686',
+// '#ffefd4', '#f98a9a'];
 
 // var colors = ['#a6cee3', '#b2df8a', '#fb9a99', '#fdbf6f',
 //                   '#cab2d6', '#ffff99', '#1f78b4', '#33a02c'];
@@ -207,7 +205,11 @@ var colors = ['#ccffcc', '#e4ffd4', '#a1ffad', '#c4ffa1', '#d4e5ff',
 var options = {
   sankey: {
     node: {
-      colors: colors
+      colors: colors,
+      labelPadding: 15,
+      label: {  color: '#dddddd',
+                fontSize: 12, }
+
     },
     link: {
       colorMode: 'gradient',

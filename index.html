@@ -6,10 +6,54 @@
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script language="javascript" type="text/javascript" src="sketch.js"></script>
   
-  <div id="sankey_multiple" style="width: 1360px; height: 830px;"></div>
+  <div id="sankey_multiple" style="margin: auto; width: 1160px; height: 780px; padding: 60px;"></div>
+ 
+  <div id="info">
+    <strong><a href="https://www.theguardian.com/us-news/ng-interactive/2015/jun/01/about-the-counted">2015 People killed by police</a></strong> <span class="bull">&bull;</span> Created by Qianqian Ye <span class="bull">&bull;</span> Data acquired from <a href="https://interactive.guim.co.uk/2015/the-counted/thecounted-data.zip">The Guardian</a>
+  </div>
 
-<style>
+ <div id="title">
+    2015 People killed by police
+  </div>
 
+    <title>2015 People killed by police</title>
+    <meta charset="utf-8">
+    <style type="text/css">
+      html {
+        height: 100%;
+      }
+      body {
+        background-color: #000000;
+         font-size: 18px;
+        color: #ffffff;
+        font-family: sans-serif;
+        font-size: 13px;
+        line-height: 20px;
+        height: 100%;
+      }
+
+      #info {
+        font-size: 16px;
+        position: absolute;
+        bottom: 5px;
+        background-color: rgba(0,0,0,0.8);
+        border-radius: 3px;
+        right: 10px;
+        padding: 10px;
+      }
+
+      #title {
+        position: absolute;
+        top: 20px;
+        width: 270px;
+        left: 20px;
+        background-color: rgba(0,0,0,0.2);
+        border-radius: 3px;
+        font: 22px Georgia;
+        padding: 10px;
+      }
+
+       
 /*.node rect {
   cursor: move;
   fill-opacity: .9;
@@ -34,5 +78,7 @@
 </style>
 </head>
 <body>
+
+
 </body>
 </html>
