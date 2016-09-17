@@ -6,15 +6,42 @@
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script language="javascript" type="text/javascript" src="sketch.js"></script>
   
-  <div id="sankey_multiple" style="margin: auto; width: 960px; height: 580px; padding: 60px;"></div>
- 
-  <div id="info">
-    <strong><a href="https://www.theguardian.com/us-news/ng-interactive/2015/jun/01/about-the-counted">2015 People killed by police</a></strong> <span class="bull">&bull;</span> Created by Qianqian Ye <span class="bull">&bull;</span> Data acquired from <a href="https://interactive.guim.co.uk/2015/the-counted/thecounted-data.zip">The Guardian</a>
-  </div>
+  <!-- <div id="sankey_multiple" style="margin: auto; width: 1160px; height: 680px; padding: 30px;"></div> -->
+   <div id="sankey_multiple" style="margin: auto;  padding: 30px;"></div>
+
 
  <div id="title">
     2015 People killed by police
   </div>
+
+  <div id="info">
+    <strong><a href="https://www.theguardian.com/us-news/ng-interactive/2015/jun/01/about-the-counted" style="color: #cecece">2015 People killed by police</a></strong> <span class="bull">&bull;</span> Created by <a href="http://qianqian-ye.com/" style="color: #b3ecec">Qianqian Ye </a> <span class="bull">&bull;</span> Data acquired from <a href="https://interactive.guim.co.uk/2015/the-counted/thecounted-data.zip" style="color: #cecece">The Guardian</a>
+  </div>
+
+ <div id="label_Age"> 
+    Age 
+  </div>
+ 
+  <div id="label_Race"> 
+  Race
+  </div>
+
+   <div id="label_Gender"> 
+    Gender
+  </div>
+
+   <div id="label_Armed"> 
+    Armed 
+  </div>
+
+   <div id="label_Classification"> 
+    Classification
+  </div>
+
+   <div id="label_State"> 
+    State
+  </div>
+
 
     <title>2015 People killed by police</title>
     <meta charset="utf-8">
@@ -31,6 +58,12 @@
         line-height: 20px;
         height: 100%;
       }
+
+      #sankey_multiple {
+        width: 90%;
+        height: 70%;
+      }
+
 
       #info {
         font-size: 13px;
@@ -53,27 +86,62 @@
         padding: 10px;
       }
 
+/*// -----------Label style place holder, still in progress....-----------// */
+      #label_Age{
+        font-size: 16px;
+        position: absolute;
+        width: 20%;
+        bottom: 15%;
+        left: 5%;
+        border-radius: 3px;
+      }
+
+      #label_Race{
+        font-size: 16px;
+        position: absolute;
+        width: 20%;
+        bottom: 15%;
+        left: 22%;
+        border-radius: 3px;
+      }        
+
+      #label_Gender{
+        font-size: 16px;
+        position: absolute;
+        width: 20%;
+        bottom: 15%;
+        left: 40%;
+        border-radius: 3px;
+      }   
+
+      #label_Armed{
+        font-size: 16px;
+        position: absolute;
+        width: 20%;
+        bottom: 15%;
+        left: 58%;
+        border-radius: 3px;
+      }    
+
+      #label_Classification{
+        font-size: 16px;
+        position: absolute;
+        width: 20%;
+        bottom: 15%;
+        left: 72%;
+        border-radius: 3px;
+      }  
+
+      #label_State{
+        font-size: 16px;
+        position: absolute;
+        width: 20%;
+        bottom: 15%;
+        left: 92%;
+        border-radius: 3px;
+      } 
        
-/*.node rect {
-  cursor: move;
-  fill-opacity: .9;
-  shape-rendering: crispEdges;
-}
 
-.node text {
-  pointer-events: none;
-  text-shadow: 0 1px 0 #fff;
-}
-
-.link {
-  fill: none;
-  stroke: #000;
-  stroke-opacity: .2;
-}
-
-.link:hover {
-  stroke-opacity: .5;
-}*/
 
 </style>
 </head>
