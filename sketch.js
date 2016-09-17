@@ -245,7 +245,7 @@ var options = {
       colors: colors,
       labelPadding: 15,
       label: {  color: '#dddddd',
-                fontSize: 12, }
+                fontSize: 9, }
 
     },
     link: {
